@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import './Widgets/Question.dart';
-import './Widgets/Answer.dart';
+import './Widgets/Quiz.dart';
+import './Widgets/Result.dart';
 
 void main() => runApp(MyApp());
 
@@ -14,61 +14,84 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   var _questionIndex = 0;
-
+  final _questions = const [
+    {
+      'questionText': 'What\'s your favourite color ?',
+      'answer': [
+        {'text': 'Black', 'score': 10},
+        {'text': 'Red', 'score': 5},
+        {'text': 'Purple', 'score': 3},
+        {'text': 'Blue', 'score': 1}
+      ]
+    },
+    {
+      'questionText': 'Your favourite car ?',
+      'answer': [
+        {'text': 'Proton', 'score': 10},
+        {'text': 'Toyota', 'score': 7},
+        {'text': 'Hyundai', 'score': 5},
+        {'text': 'Nissan', 'score' : 3}
+      ]
+    },
+    {
+      'questionText': 'Your favourite football team ?',
+      'answer': [
+        {'text': 'Man Utd', 'score': 10},
+        {'text': 'RB Leipzig', 'score': 7},
+        {'text': 'Inter Milan', 'score': 5},
+        {'text': 'FC Barcelona', 'score' : 3}
+      ]
+    }
+  ];
 
   void _answerQuestion() {
     setState(() {
-      if (_questionIndex == 0 ){
+      _questionIndex = _questionIndex + 1;
+    });
+    if (_questionIndex < _questions.length) {
+      print('More question');
+    } else {
+      print(' No question ');
+    }
+  }
+
+  void _answerQuestion2() {
+    setState(() {
+      if (_questionIndex < _questions.length) {
         _questionIndex = _questionIndex + 1;
-      } else {
-        _questionIndex = 0;
       }
     });
-    print(_questionIndex);
   }
 
   @override
   Widget build(BuildContext context) {
-    var questions = ['You favourite color?', 'Your favourite meal?'];
     return MaterialApp(
       theme: ThemeData(
         primaryColor: Color(0xff6d006d),
       ),
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Personality Quiz 2 2021'),
+          title: Text('Personaly'),
         ),
         body: Center(
-          child: Column(
-            children: [
-              Question(
-                questionText: questions[_questionIndex],
-              ),
-              ElevatedButton(
-                onPressed: _answerQuestion,
-                child: Text('Answer'),
-              ),
-              ElevatedButton(
-                onPressed: _answerQuestion,
-                child: Text('Answer'),
-              ),
-              ElevatedButton(
-                onPressed: _answerQuestion,
-                child: Text('Answer'),
-              ),
-              ElevatedButton(
-                onPressed: _answerQuestion,
-                child: Text('Answer'),
-              ),
-              Answer(
-                answerText: 'Hello',
-              ),
-            ],
-          ),
+          child: _questionIndex < _questions.length
+              ? Quiz(
+                  questionSet: _questions,
+                  questionIndex: _questionIndex,
+                  answerCallback: _answerQuestion,
+                )
+              : Result(
+            resetButton: ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  _questionIndex = 0;
+                });
+              },
+              child: Text('Reset Question'),
+            ),
+          )
         ),
       ),
     );
   }
 }
-
-

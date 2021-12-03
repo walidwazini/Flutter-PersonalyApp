@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.personality_quiz_2">
+    package="personaly.creax.com">
    <application
         android:label="personality_quiz_2"
         android:icon="@mipmap/ic_launcher">
