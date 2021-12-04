@@ -15,7 +15,7 @@ class Result extends StatelessWidget {
     } else if (resultScore! <= 16) {
       resultText = 'You are ... strange?';
     } else {
-      resultText = ' Woah!..Y-you..?';
+      resultText = ' Woah!..Y-you..?  $resultScore ';
     }
     return resultText;
   }
