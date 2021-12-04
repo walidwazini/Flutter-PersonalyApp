@@ -31,7 +31,7 @@ class _MyAppState extends State<MyApp> {
         {'text': 'Proton', 'score': 10},
         {'text': 'Toyota', 'score': 7},
         {'text': 'Hyundai', 'score': 5},
-        {'text': 'Nissan', 'score' : 3}
+        {'text': 'Nissan', 'score': 3}
       ]
     },
     {
@@ -40,7 +40,7 @@ class _MyAppState extends State<MyApp> {
         {'text': 'Man Utd', 'score': 10},
         {'text': 'RB Leipzig', 'score': 7},
         {'text': 'Inter Milan', 'score': 5},
-        {'text': 'FC Barcelona', 'score' : 3}
+        {'text': 'FC Barcelona', 'score': 3}
       ]
     }
   ];
@@ -65,6 +65,13 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  void _resetQuiz(){
+    setState(() {
+      _questionIndex = 0;
+      _totalScore = 0;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -76,22 +83,23 @@ class _MyAppState extends State<MyApp> {
           title: Text('Personaly'),
         ),
         body: Center(
-          child: _questionIndex < _questions.length
-              ? Quiz(
-                  questionSet: _questions,
-                  questionIndex: _questionIndex,
-                  answerCallback: () =>_answerQuestion,
-                )
-              : Result(
-            resetButton: ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  _questionIndex = 0;
-                });
-              },
-              child: Text('Reset Question'),
-            ),
-          )
+            child: _questionIndex < _questions.length
+                ? Quiz(
+              questionSet: _questions,
+              questionIndex: _questionIndex,
+              answerCallback: _answerQuestion,
+            )
+                : Result(
+              resultScore: _totalScore,
+              resetButton: ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    _questionIndex = 0;
+                  });
+                },
+                child: Text('Reset Question'),
+              ),
+            )
         ),
       ),
     );

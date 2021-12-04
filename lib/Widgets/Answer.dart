@@ -33,7 +33,7 @@ class AnswerInkwell extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: InkWell(
-        onTap: () => voidCallback,
+        onTap: voidCallback,
         highlightColor: Colors.pink,
         focusColor: Colors.blueGrey,
         child: Container(
