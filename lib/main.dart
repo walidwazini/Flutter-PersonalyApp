@@ -14,6 +14,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   var _questionIndex = 0;
+  var _totalScore = 0;
   final _questions = const [
     {
       'questionText': 'What\'s your favourite color ?',
@@ -44,7 +45,8 @@ class _MyAppState extends State<MyApp> {
     }
   ];
 
-  void _answerQuestion() {
+  void _answerQuestion(int score) {
+    _totalScore += score;
     setState(() {
       _questionIndex = _questionIndex + 1;
     });
@@ -78,7 +80,7 @@ class _MyAppState extends State<MyApp> {
               ? Quiz(
                   questionSet: _questions,
                   questionIndex: _questionIndex,
-                  answerCallback: _answerQuestion,
+                  answerCallback: () =>_answerQuestion,
                 )
               : Result(
             resetButton: ElevatedButton(

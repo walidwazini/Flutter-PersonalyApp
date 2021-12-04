@@ -23,22 +23,17 @@ class AnswerGesture extends StatelessWidget {
 }
 
 class AnswerInkwell extends StatelessWidget {
-  final Function? function;
-  final VoidCallback? voidCallback;
+  // final Function? function;
+  final VoidCallback voidCallback;
   final String? answerText;
 
-  AnswerInkwell({
-    Key? key,
-    this.function,
-    this.voidCallback,
-    required this.answerText,
-  }) : super(key: key);
+  AnswerInkwell(this.answerText, this.voidCallback);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: InkWell(
-        onTap: voidCallback,
+        onTap: () => voidCallback,
         highlightColor: Colors.pink,
         focusColor: Colors.blueGrey,
         child: Container(
